@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
@@ -38,9 +39,17 @@ public class MyActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
     public void cambio(View v){
+        String salu=null;
         EditText entra= (EditText) findViewById(R.id.entrada);
         Button bot= (Button) findViewById(R.id.b_saludo);
         TextView sal=(TextView) findViewById(R.id.saludo);
-        sal.setText(bot.getResources().getString(R.string.hola)+" "+entra.getText());
+        RadioGroup rb= (RadioGroup) findViewById(R.id.grupoRb);
+        if (R.id.Sr == rb.getCheckedRadioButtonId()){
+            salu = getResources().getString(R.string.sr).toLowerCase();
+        }
+        else{
+            salu = getResources().getString(R.string.sra).toLowerCase();
+        }
+        sal.setText(bot.getResources().getString(R.string.hola)+" "+salu+" "+entra.getText());
     }
 }
