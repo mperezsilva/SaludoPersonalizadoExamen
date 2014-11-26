@@ -7,5 +7,7 @@
     <string name="sr">Sr.</string>
     <string name="sra">Sra.</string>
     <string name="saludo">Saludo:</string>
+    <string name="showTime">Mostrar Fecha/Hora</string>
+    <string name="noNameMsg">falta nombre</string>
 
 </resources>

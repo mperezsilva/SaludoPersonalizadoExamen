@@ -1,14 +1,22 @@
 package com.example.mperezsilva.saludopersonalizado;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 
 public class MyActivity extends Activity {
@@ -17,6 +25,53 @@ public class MyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        Button button = (Button)findViewById(R.id.b_saludo);
+        button.setOnClickListener(new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                EditText text = (EditText)findViewById(R.id.entrada);
+                if ("".equals(text.getText().toString().trim())){
+                    //showAlert();
+                    showToast();
+                    return;
+                }
+                String salutation = null;
+                String enteredName = text.getText().toString();
+                RadioGroup radio = (RadioGroup)findViewById(R.id.grupoRb);
+                if (R.id.Sr == radio.getCheckedRadioButtonId()){
+                    salutation = getResources().getString(R.string.sr).toLowerCase();
+                }
+                else{
+                    salutation = getResources().getString(R.string.sra).toLowerCase();
+                }
+                salutation = getResources().getString(R.string.hola) + " " + salutation + " " + enteredName;
+                CheckBox timeCheckBox = (CheckBox)findViewById(R.id.checkBox);
+                if (timeCheckBox.isChecked()){
+                    DatePicker date = (DatePicker) findViewById(R.id.datePicker);
+                    String dateToShow = date.getDayOfMonth() + "/" + (date.getMonth() + 1) + "/" + date.getYear();
+                    TimePicker time = (TimePicker) findViewById(R.id.timePicker);
+                    dateToShow += " " + time.getCurrentHour() + ":" + time.getCurrentMinute();
+                    salutation += " " + dateToShow;
+                }
+                /*Intent intent = new Intent(MyActivity.this,Salutation.class);
+                intent.putExtra("salutation", salutation);
+                startActivity(intent);*/
+                TextView sal=(TextView) findViewById(R.id.saludo);
+                sal.setText(salutation);
+
+            }
+        });
+        CheckBox checkBox = (CheckBox)findViewById(R.id.checkBox);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int visibility = isChecked ? View.VISIBLE : View.GONE;
+                View view = findViewById(R.id.timePicker);
+                view.setVisibility(visibility);
+                view = findViewById(R.id.datePicker);
+                view.setVisibility(visibility);
+            }
+        });
     }
 
 
@@ -38,7 +93,22 @@ public class MyActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void cambio(View v){
+    protected void showAlert() {
+        CharSequence text = getResources().getString(R.string.noNameMsg);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(text);
+        alert.setPositiveButton(android.R.string.ok, null);
+        alert.show();
+    }
+
+    protected void showToast() {
+        Context context = getApplicationContext();
+        CharSequence text = getResources().getString(R.string.noNameMsg);
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+    /*public void cambio(View v){
         String salu=null;
         EditText entra= (EditText) findViewById(R.id.entrada);
         Button bot= (Button) findViewById(R.id.b_saludo);
@@ -51,5 +121,5 @@ public class MyActivity extends Activity {
             salu = getResources().getString(R.string.sra).toLowerCase();
         }
         sal.setText(bot.getResources().getString(R.string.hola)+" "+salu+" "+entra.getText());
-    }
+    }*/
 }
