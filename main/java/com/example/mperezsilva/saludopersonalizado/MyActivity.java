@@ -25,28 +25,34 @@ public class MyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        Button button = (Button)findViewById(R.id.b_saludo);
-        button.setOnClickListener(new View.OnClickListener () {
+        Button button = (Button) findViewById(R.id.b_saludo);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText text = (EditText)findViewById(R.id.entrada);
-                if ("".equals(text.getText().toString().trim())){
+                EditText text = (EditText) findViewById(R.id.entrada);
+                if ("".equals(text.getText().toString().trim())) {
                     //showAlert();
                     showToast();
                     return;
                 }
                 String salutation = null;
+                String sali = null;
                 String enteredName = text.getText().toString();
-                RadioGroup radio = (RadioGroup)findViewById(R.id.grupoRb);
-                if (R.id.Sr == radio.getCheckedRadioButtonId()){
+                RadioGroup radio = (RadioGroup) findViewById(R.id.grupoRb);
+                RadioGroup radioH = (RadioGroup) findViewById(R.id.radioBha);
+                if (R.id.Sr == radio.getCheckedRadioButtonId()) {
                     salutation = getResources().getString(R.string.sr).toLowerCase();
-                }
-                else{
+                } else {
                     salutation = getResources().getString(R.string.sra).toLowerCase();
                 }
-                salutation = getResources().getString(R.string.hola) + " " + salutation + " " + enteredName;
-                CheckBox timeCheckBox = (CheckBox)findViewById(R.id.checkBox);
-                if (timeCheckBox.isChecked()){
+                if (R.id.bHola == radioH.getCheckedRadioButtonId()) {
+                    sali = getResources().getString(R.string.hola);
+                } else {
+                    sali = getResources().getString(R.string.adios);
+                }
+                salutation = sali + " " + salutation + " " + enteredName;
+                CheckBox timeCheckBox = (CheckBox) findViewById(R.id.checkBox);
+                if (timeCheckBox.isChecked()) {
                     DatePicker date = (DatePicker) findViewById(R.id.datePicker);
                     String dateToShow = date.getDayOfMonth() + "/" + (date.getMonth() + 1) + "/" + date.getYear();
                     TimePicker time = (TimePicker) findViewById(R.id.timePicker);
@@ -56,12 +62,12 @@ public class MyActivity extends Activity {
                 /*Intent intent = new Intent(MyActivity.this,Salutation.class);
                 intent.putExtra("salutation", salutation);
                 startActivity(intent );*/
-                TextView sal=(TextView) findViewById(R.id.saludo);
+                TextView sal = (TextView) findViewById(R.id.saludo);
                 sal.setText(salutation);
 
             }
         });
-        CheckBox checkBox = (CheckBox)findViewById(R.id.checkBox);
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -93,6 +99,7 @@ public class MyActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     protected void showAlert() {
         CharSequence text = getResources().getString(R.string.noNameMsg);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);

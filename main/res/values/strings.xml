@@ -3,11 +3,13 @@
 
     <string name="app_name">SaludoPersonalizado</string>
     <string name="hola">Hola</string>
+    <string name="adios">Adios</string>
     <string name="action_settings">Settings</string>
     <string name="sr">Sr.</string>
     <string name="sra">Sra.</string>
     <string name="saludo">Saludo:</string>
     <string name="showTime">Mostrar Fecha/Hora</string>
     <string name="noNameMsg">falta nombre</string>
+    <string name="elegir">Elige saludo</string>
 
 </resources>
