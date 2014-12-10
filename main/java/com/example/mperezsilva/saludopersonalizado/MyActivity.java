@@ -27,12 +27,20 @@ import java.util.ArrayList;
 public class MyActivity extends Activity {
 
     String li;
+    Spinner sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         Button button = (Button) findViewById(R.id.b_saludo);
+        sp = (Spinner) findViewById(R.id.spHol);
+        ArrayList<String> al = new ArrayList<String>();
+        al.add(getResources().getString(R.string.hola));
+        al.add(getResources().getString(R.string.adios));
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, al);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(adaptador);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +65,7 @@ public class MyActivity extends Activity {
                 } else {
                     sali = getResources().getString(R.string.adios);
                 }*/
-                sali=listarSpinner();
+                sali = listarSpinner();
                 salutation = sali + " " + salutation + " " + enteredName;
                 CheckBox timeCheckBox = (CheckBox) findViewById(R.id.checkBox);
                 if (timeCheckBox.isChecked()) {
@@ -88,20 +96,21 @@ public class MyActivity extends Activity {
         });
     }
 
-    public String listarSpinner(){
-        Spinner sp= (Spinner) findViewById(R.id.spHol);
+    public String listarSpinner() {
+        /*Spinner sp= (Spinner) findViewById(R.id.spHol);
         ArrayList<String> al=new ArrayList<String>();
         al.add(getResources().getString(R.string.hola));
         al.add(getResources().getString(R.string.adios));
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, al);
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp.setAdapter(adaptador);
+        sp.setAdapter(adaptador);*/
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Toast.makeText(arg0.getContext(), "Seleccionado: " + arg0.getItemAtPosition(arg2).toString(), Toast.LENGTH_SHORT).show();
-                li=arg0.getItemAtPosition(arg2).toString();
+                li = arg0.getItemAtPosition(arg2).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
