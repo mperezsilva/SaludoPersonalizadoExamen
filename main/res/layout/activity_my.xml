@@ -50,7 +50,7 @@
                 android:checked="true" />
         </RadioGroup>
 
-        <RadioGroup
+        <!--<RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_gravity="center_horizontal"
@@ -75,7 +75,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/adios"
                 android:id="@+id/bAdios" />
-        </RadioGroup>
+        </RadioGroup>-->
+
+        <Spinner
+            android:layout_width="252dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spHol"
+            android:prompt="@string/elegir"
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dropdown"/>
 
         <CheckBox
             android:text="@string/showTime"

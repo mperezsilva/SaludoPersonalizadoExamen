@@ -8,18 +8,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class MyActivity extends Activity {
+
+    String li;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +46,18 @@ public class MyActivity extends Activity {
                 String sali = null;
                 String enteredName = text.getText().toString();
                 RadioGroup radio = (RadioGroup) findViewById(R.id.grupoRb);
-                RadioGroup radioH = (RadioGroup) findViewById(R.id.radioBha);
+                //RadioGroup radioH = (RadioGroup) findViewById(R.id.radioBha);
                 if (R.id.Sr == radio.getCheckedRadioButtonId()) {
                     salutation = getResources().getString(R.string.sr).toLowerCase();
                 } else {
                     salutation = getResources().getString(R.string.sra).toLowerCase();
                 }
-                if (R.id.bHola == radioH.getCheckedRadioButtonId()) {
+                /*if (R.id.bHola == radioH.getCheckedRadioButtonId()) {
                     sali = getResources().getString(R.string.hola);
                 } else {
                     sali = getResources().getString(R.string.adios);
-                }
+                }*/
+                sali=listarSpinner();
                 salutation = sali + " " + salutation + " " + enteredName;
                 CheckBox timeCheckBox = (CheckBox) findViewById(R.id.checkBox);
                 if (timeCheckBox.isChecked()) {
@@ -80,6 +88,26 @@ public class MyActivity extends Activity {
         });
     }
 
+    public String listarSpinner(){
+        Spinner sp= (Spinner) findViewById(R.id.spHol);
+        ArrayList<String> al=new ArrayList<String>();
+        al.add(getResources().getString(R.string.hola));
+        al.add(getResources().getString(R.string.adios));
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, al);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(adaptador);
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                Toast.makeText(arg0.getContext(), "Seleccionado: " + arg0.getItemAtPosition(arg2).toString(), Toast.LENGTH_SHORT).show();
+                li=arg0.getItemAtPosition(arg2).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+        return li;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
