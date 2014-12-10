@@ -55,7 +55,7 @@ public class MyActivity extends Activity {
                 }
                 /*Intent intent = new Intent(MyActivity.this,Salutation.class);
                 intent.putExtra("salutation", salutation);
-                startActivity(intent);*/
+                startActivity(intent );*/
                 TextView sal=(TextView) findViewById(R.id.saludo);
                 sal.setText(salutation);
 
